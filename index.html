@@ -84,11 +84,15 @@
 
     <!-- Main Page -->
     <header>
-      <nav class="navbar px-16 bg-base-100 shadow-sm">
+      <nav
+        class="navbar flex-col sm:flex-row px-4 md:px-16 bg-base-100 shadow-sm"
+      >
         <div class="flex-1">
           <a class="btn btn-ghost text-xl">
             <img class="w-7" src="./assets/github-logo.png" alt="" />
-            GitHub Issues Tracker</a
+            <span class="sm:hidden md:inline-block whitespace-nowrap"
+              >GitHub Issues Tracker</span
+            ></a
           >
         </div>
         <div class="flex gap-2">
@@ -113,7 +117,7 @@
 
         <div class="divide-y divide-gray-200">
           <div
-            class="bg-base-100 rounded-t-md p-5 flex justify-between items-center"
+            class="bg-base-100 rounded-t-md p-5 flex flex-col sm:flex-row justify-between items-center"
           >
             <div class="flex gap-2 justify-start items-center">
               <div
@@ -145,49 +149,10 @@
             </div>
           </div>
 
-          <div class="bg-base-100 rounded-b-md p-5 grid grid-cols-4 gap-4">
-            <div
-              onclick="my_modal.showModal()"
-              class="card shadow-sm divide-y divide-gray-200 space-y-2 border-t-4 border-t-green-600 cursor-pointer"
-            >
-              <div class="p-4">
-                <div class="flex justify-between items-center mb-4">
-                  <img class="w-7" src="./assets/Open-Status.png" alt="" />
-                  <p
-                    class="text-red-600 bg-red-100 font-medium px-4 py-0.5 rounded-full uppercase"
-                  >
-                    High
-                  </p>
-                </div>
-                <h4 class="card-title mb-1">
-                  Fix navigation menu on mobile devices
-                </h4>
-                <p class="line-clamp-2 text-sm text-gray-500">
-                  The navigation menu doesn't collapse properly on mobile
-                  devices Lorem ipsum dolor, sit amet consectetur adipisicing
-                  elit. Dolorem, esse?
-                </p>
-                <div class="flex justify-start gap-2 mt-4">
-                  <p
-                    class="text-red-600 bg-red-100 font-medium px-4 py-0.5 rounded-full uppercase border border-red-200"
-                  >
-                    <i class="fa-solid fa-bug"></i>
-                    bug
-                  </p>
-                  <p
-                    class="text-yellow-600 bg-yellow-100 font-medium px-4 py-0.5 rounded-full uppercase border border-yellow-200"
-                  >
-                    <i class="fa-regular fa-life-ring"></i>
-                    Help Wanted
-                  </p>
-                </div>
-              </div>
-              <div class="p-4 space-y-1 text-start">
-                <p class="text-sm text-gray-500">#1 by john_doe</p>
-                <p class="text-sm text-gray-500">1/15/2024</p>
-              </div>
-            </div>
-          </div>
+          <div
+            id="card-container"
+            class="bg-base-100 rounded-b-md p-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+          ></div>
         </div>
       </div>
     </section>
@@ -210,5 +175,57 @@
         <button>close</button>
       </form>
     </dialog>
+
+    <script>
+      const container = document.getElementById("card-container");
+      const count = 15;
+
+      for (let i = 0; i < count; i++) {
+        const element = document.createElement("div");
+
+        element.innerHTML = `   <div
+              class="card shadow-sm divide-y divide-gray-200 space-y-2 border-t-4 border-t-green-600 cursor-pointer"
+              onclick="my_modal.showModal()"
+            >
+              <div class="p-4">
+                <div class="flex justify-between items-center mb-4">
+                  <img class="w-7" src="./assets/Open-Status.png" alt="" />
+                  <p
+                    class="text-red-600 bg-red-100 font-medium px-4 py-0.5 rounded-full uppercase"
+                  >
+                    High
+                  </p>
+                </div>
+                <h4 class="card-title mb-1">
+                  Fix navigation menu on mobile devices
+                </h4>
+                <p class="line-clamp-2 text-sm text-gray-500">
+                  The navigation menu doesn't collapse properly on mobile
+                  devices Lorem ipsum dolor, sit amet consectetur adipisicing
+                  elit. Dolorem, esse?
+                </p>
+                <div class="flex justify-start flex-wrap gap-2 mt-4">
+                  <p
+                    class="text-red-600 bg-red-100 font-medium px-3 py-0.5 rounded-full uppercase border border-red-200"
+                  >
+                    <i class="fa-solid fa-bug"></i>
+                    bug
+                  </p>
+                  <p
+                    class="text-yellow-600 bg-yellow-100 font-medium px-3 py-0.5 rounded-full uppercase border border-yellow-200"
+                  >
+                    <i class="fa-regular fa-life-ring"></i>
+                    Help Wanted
+                  </p>
+                </div>
+              </div>
+              <div class="p-4 space-y-1 text-start">
+                <p class="text-sm text-gray-500">#1 by john_doe</p>
+                <p class="text-sm text-gray-500">1/15/2024</p>
+              </div>
+            </div>`;
+        container.appendChild(element);
+      }
+    </script>
   </body>
 </html>
