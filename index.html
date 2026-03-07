@@ -26,5 +26,51 @@
     <!-- CSS -->
     <link rel="stylesheet" href="./style.css" />
   </head>
-  <body></body>
+  <body>
+    <!-- Login Form -->
+    <div class="grid place-items-center min-h-screen">
+      <div class="card bg-base-100 w-full max-w-md shrink-0 shadow-2xl">
+        <div class="card-body">
+          <div class="flex flex-col items-center gap-1">
+            <img class="w-24 mb-2" src="./assets/github-logo.png" alt="" />
+            <h4 class="text-xl font-semibold">GitHub Issues Tracker</h4>
+            <p class="text-base-content/60">Sign in to manage your issues</p>
+          </div>
+
+          <fieldset class="fieldset">
+            <label class="text-base font-medium">Username</label>
+            <input
+              type="text"
+              class="input w-full"
+              placeholder="Enter Username"
+            />
+            <p class="text-purple-600 mb-2">Default: admin</p>
+
+            <label class="text-base font-medium">Password</label>
+            <input
+              type="password"
+              class="input w-full"
+              placeholder="Enter Password"
+            />
+            <p class="text-purple-600">Default: admin123</p>
+            <button class="btn btn-primary mt-4">Sign In</button>
+
+            <div class="divider">OR</div>
+
+            <p class="mx-auto text-sm mb-2 text-base-content/60">
+              Demo Credentials:
+            </p>
+            <div class="bg-base-200 p-5 text-center space-y-1 rounded-sm">
+              <p class="text-sm">
+                <span class="font-semibold">Username:</span> admin
+              </p>
+              <p class="text-sm">
+                <span class="font-semibold">Password:</span> admin123
+              </p>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
