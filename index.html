@@ -177,49 +177,7 @@
 
       <dialog id="my_modal" class="modal modal-bottom sm:modal-middle">
         <div class="modal-box">
-          <h3 class="text-xl font-bold mb-2">Fix broken image uploads</h3>
-          <div class="flex justify-start items-center gap-2">
-            <div class="badge badge-success text-white rounded-full">
-              Opened
-            </div>
-            <p class="text-sm text-gray-500">
-              • Opened by Fahim Ahmed • 22/02/2026
-            </p>
-          </div>
-          <div class="flex justify-start flex-wrap gap-2 my-5">
-            <p
-              class="text-red-600 bg-red-100 font-medium px-3 py-0.5 rounded-full uppercase border border-red-200"
-            >
-              <i class="fa-solid fa-bug"></i>
-              bug
-            </p>
-            <p
-              class="text-yellow-600 bg-yellow-100 font-medium px-3 py-0.5 rounded-full uppercase border border-yellow-200"
-            >
-              <i class="fa-regular fa-life-ring"></i>
-              Help Wanted
-            </p>
-          </div>
-          <p class="line-clamp-2 text-base text-gray-500">
-            The navigation menu doesn't collapse properly on mobile devices.
-            Need to fix the responsive behavior.
-          </p>
-
-          <div class="bg-base-200 rounded-md grid grid-cols-2 p-4 mt-5">
-            <div class="text-start">
-              <p class="text-lg text-gray-500">Assignee:</p>
-              <h4 class="text-lg font-semibold">Fahim Ahmed</h4>
-            </div>
-            <div class="text-start">
-              <p class="text-lg text-gray-500">Priority:</p>
-              <div
-                class="bg-red-600 text-white font-medium px-3 py-0.5 rounded-full uppercase inline-block"
-              >
-                High
-              </div>
-            </div>
-          </div>
-
+          <div id="modal-container"></div>
           <div class="modal-action">
             <form method="dialog">
               <button class="btn btn-primary">Close</button>

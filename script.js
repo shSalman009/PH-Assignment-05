@@ -23,17 +23,25 @@ async function getAllIssues() {
   const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
   const res = await fetch(url);
   const json = await res.json();
-  displayIssues(json.data);
+  displayAllIssues(json.data);
+}
+getAllIssues();
+
+async function getSingleIssue(id) {
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
+  const res = await fetch(url);
+  const json = await res.json();
+  displaySingleIssue(json.data);
 }
 
 // Display Issues
-function displayIssues(issues) {
+function displayAllIssues(issues) {
   const issuesContainer = document.getElementById("issues-container");
   issues.forEach((issue) => {
     const element = document.createElement("div");
     element.innerHTML = `<div
                 class="card shadow-sm divide-y divide-gray-200 space-y-2 border-t-4 ${issue.status === "open" ? "border-t-green-600" : "border-t-purple-600"} cursor-pointer"
-                onclick="my_modal.showModal()"
+                onclick="getSingleIssue(${issue.id})"
               >
                 <div class="p-4">
                   <div class="flex justify-between items-center mb-4">
@@ -73,12 +81,11 @@ function renderPriority(priority) {
   if (!color) return "";
 
   return `
-    <p class="text-${color}-600 bg-${color}-100 text-sm font-medium px-4 py-0.5 rounded-full uppercase">
+    <p class="text-${color}-600 bg-${color}-100 text-sm font-medium px-4 py-0.5 rounded-full uppercase inline-block">
       ${priority}
     </p>
   `;
 }
-
 function renderLabels(labels) {
   const labelConfig = {
     bug: {
@@ -112,4 +119,37 @@ function renderLabels(labels) {
       </p>`;
     })
     .join("");
+}
+
+// Display Single Issue in Modal
+function displaySingleIssue(issue) {
+  const modalContainer = document.getElementById("modal-container");
+  const modalEl = `<h3 class="text-xl font-bold mb-2">${issue.title}</h3>
+          <div class="flex justify-start items-center gap-2">
+            <div class="badge rounded-full text-white ${issue.status === "open" ? "bg-green-600" : "bg-purple-600"}">
+              ${issue.status}
+            </div>
+            <p class="text-sm text-gray-500">
+              • Opened by ${issue.author} • ${new Date(issue.createdAt).toLocaleDateString()}
+            </p>
+          </div>
+          <div class="flex justify-start flex-wrap gap-2 my-5">
+              ${renderLabels(issue.labels)}
+          </div>
+          <p class="line-clamp-2 text-base text-gray-500">
+           ${issue.description}
+          </p>
+
+          <div class="bg-base-200 rounded-md grid grid-cols-2 p-4 mt-5">
+            <div class="text-start">
+              <p class="text-lg text-gray-500">Assignee:</p>
+              <h4 class="text-lg font-semibold">${issue.assignee}</h4>
+            </div>
+            <div class="text-start">
+              <p class="text-lg text-gray-500">Priority:</p>
+              ${renderPriority(issue.priority)}
+            </div>
+          </div>`;
+  modalContainer.innerHTML = modalEl;
+  document.getElementById("my_modal").showModal();
 }
