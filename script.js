@@ -2,13 +2,13 @@
 const form = document.getElementById("login-form");
 const loginSection = document.getElementById("login-section");
 const mainSection = document.getElementById("main-section");
-const allIssues = [];
+let allIssues = [];
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  const username = document.getElementById("username-input").value;
-  const password = document.getElementById("password-input").value;
+  const username = document.getElementById("username-input").value.trim();
+  const password = document.getElementById("password-input").value.trim();
 
   if (username === "admin" && password === "admin123") {
     loginSection.classList.add("hidden");
@@ -36,13 +36,11 @@ tabContainer.addEventListener("click", (event) => {
 
   if (currentTarget === "all") {
     displayIssues(allIssues);
-    updateCount(allIssues.length);
     return;
   }
 
   const filteredIssues = allIssues.filter((i) => i.status === currentTarget);
   displayIssues(filteredIssues);
-  updateCount(filteredIssues.length);
 });
 
 // Update Count Status
@@ -56,9 +54,8 @@ async function getAllIssues() {
   const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
   const res = await fetch(url);
   const json = await res.json();
-  allIssues.push(...json.data);
+  allIssues = json.data;
   displayIssues(allIssues);
-  updateCount(allIssues.length);
 }
 // Fetch Single Issue
 async function getSingleIssue(id) {
@@ -70,6 +67,7 @@ async function getSingleIssue(id) {
 
 // Display Issues
 function displayIssues(issues) {
+  updateCount(issues.length);
   const issuesContainer = document.getElementById("issues-container");
   issuesContainer.innerHTML = "";
   issues.forEach((issue) => {
@@ -188,3 +186,17 @@ function displaySingleIssue(issue) {
   modalContainer.innerHTML = modalEl;
   document.getElementById("my_modal").showModal();
 }
+
+// Search Issues
+const searchForm = document.getElementById("search-form");
+const searchInput = document.getElementById("search-input");
+
+searchForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const searchValue = searchInput.value.trim();
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/${searchValue && `search?q=${searchValue}`}`;
+  const res = await fetch(url);
+  const json = await res.json();
+  allIssues = json.data;
+  displayIssues(json.data);
+});

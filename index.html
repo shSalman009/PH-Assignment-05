@@ -112,11 +112,14 @@
           <div class="flex gap-2">
             <label class="input">
               <i class="fa-solid fa-magnifying-glass h-[1em] opacity-50"></i>
-              <input
-                type="search"
-                class="grow"
-                placeholder="Search issues..."
-              />
+              <form id="search-form">
+                <input
+                  id="search-input"
+                  type="search"
+                  class="grow"
+                  placeholder="Search issues..."
+                />
+              </form>
             </label>
             <button class="btn btn-primary">
               <i class="fa-solid fa-plus"></i> New Issue
