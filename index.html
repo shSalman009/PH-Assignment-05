@@ -127,10 +127,17 @@
 
       <section class="bg-base-200 py-10">
         <div class="container mx-auto">
-          <div class="bg-base-100 rounded-md space-x-1 p-5 mb-5">
-            <button class="btn btn-primary">All</button>
-            <button class="btn btn-outline">Open</button>
-            <button class="btn btn-outline">Closed</button>
+          <div
+            id="tab-buttons"
+            class="bg-base-100 rounded-md space-x-1 p-5 mb-5"
+          >
+            <button id="tab-button" data-tab="all" class="btn btn-primary">
+              All
+            </button>
+            <button id="tab-button" data-tab="open" class="btn">Open</button>
+            <button id="tab-button" data-tab="closed" class="btn">
+              Closed
+            </button>
           </div>
 
           <div class="divide-y divide-gray-200">
@@ -144,7 +151,9 @@
                   <img class="w-9" src="./assets/Aperture.png" alt="" />
                 </div>
                 <div>
-                  <h4 class="text-lg font-semibold">50 Issues</h4>
+                  <h4 id="count-status" class="text-lg font-semibold">
+                    0 Issues
+                  </h4>
                   <p class="text-base-content/60">
                     Track and manage your project issues
                   </p>

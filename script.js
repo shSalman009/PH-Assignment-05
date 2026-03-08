@@ -2,6 +2,7 @@
 const form = document.getElementById("login-form");
 const loginSection = document.getElementById("login-section");
 const mainSection = document.getElementById("main-section");
+const allIssues = [];
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -18,15 +19,48 @@ form.addEventListener("submit", function (event) {
   }
 });
 
-// Load All The Issues
+// Toggle Tab
+const tabContainer = document.getElementById("tab-buttons");
+tabContainer.addEventListener("click", (event) => {
+  const targets = ["all", "open", "closed"];
+  const currentTarget = event.target.dataset.tab;
+
+  if (!targets.includes(currentTarget)) return;
+
+  const buttons = document.querySelectorAll("#tab-button");
+  buttons.forEach((btn) => {
+    btn.classList.remove("btn-primary");
+  });
+
+  event.target.classList.add("btn-primary");
+
+  if (currentTarget === "all") {
+    displayIssues(allIssues);
+    updateCount(allIssues.length);
+    return;
+  }
+
+  const filteredIssues = allIssues.filter((i) => i.status === currentTarget);
+  displayIssues(filteredIssues);
+  updateCount(filteredIssues.length);
+});
+
+// Update Count Status
+function updateCount(count) {
+  const element = document.getElementById("count-status");
+  element.textContent = count;
+}
+
+// Fetch All The Issues
 async function getAllIssues() {
   const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
   const res = await fetch(url);
   const json = await res.json();
-  displayAllIssues(json.data);
+  allIssues.push(...json.data);
+  displayIssues(allIssues);
+  updateCount(allIssues.length);
 }
-getAllIssues();
-
+// Fetch Single Issue
 async function getSingleIssue(id) {
   const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
   const res = await fetch(url);
@@ -35,8 +69,9 @@ async function getSingleIssue(id) {
 }
 
 // Display Issues
-function displayAllIssues(issues) {
+function displayIssues(issues) {
   const issuesContainer = document.getElementById("issues-container");
+  issuesContainer.innerHTML = "";
   issues.forEach((issue) => {
     const element = document.createElement("div");
     element.innerHTML = `<div
