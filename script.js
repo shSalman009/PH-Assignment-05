@@ -2,6 +2,7 @@
 const form = document.getElementById("login-form");
 const loginSection = document.getElementById("login-section");
 const mainSection = document.getElementById("main-section");
+const issuesContainer = document.getElementById("issues-container");
 let allIssues = [];
 
 form.addEventListener("submit", function (event) {
@@ -51,6 +52,7 @@ function updateCount(count) {
 
 // Fetch All The Issues
 async function getAllIssues() {
+  loadingSpinner();
   const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
   const res = await fetch(url);
   const json = await res.json();
@@ -68,7 +70,6 @@ async function getSingleIssue(id) {
 // Display Issues
 function displayIssues(issues) {
   updateCount(issues.length);
-  const issuesContainer = document.getElementById("issues-container");
   issuesContainer.innerHTML = "";
   issues.forEach((issue) => {
     const element = document.createElement("div");
@@ -192,6 +193,7 @@ const searchForm = document.getElementById("search-form");
 const searchInput = document.getElementById("search-input");
 
 searchForm.addEventListener("submit", async (event) => {
+  loadingSpinner();
   event.preventDefault();
   const searchValue = searchInput.value.trim();
   const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/${searchValue && `search?q=${searchValue}`}`;
@@ -200,3 +202,10 @@ searchForm.addEventListener("submit", async (event) => {
   allIssues = json.data;
   displayIssues(json.data);
 });
+
+function loadingSpinner() {
+  const spinnerEl = `<div class="col-span-full text-center min-h-40 grid place-items-center">
+                          <span class="loading loading-spinner loading-lg"></span>
+                    </div>`;
+  issuesContainer.innerHTML = spinnerEl;
+}
