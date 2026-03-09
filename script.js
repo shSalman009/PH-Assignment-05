@@ -47,7 +47,7 @@ tabContainer.addEventListener("click", (event) => {
 // Update Count Status
 function updateCount(count) {
   const element = document.getElementById("count-status");
-  element.textContent = count;
+  element.textContent = `${count} Issues`;
 }
 
 // Fetch All The Issues
@@ -203,6 +203,7 @@ searchForm.addEventListener("submit", async (event) => {
   displayIssues(json.data);
 });
 
+// Loading Spinner When Data Load
 function loadingSpinner() {
   const spinnerEl = `<div class="col-span-full text-center min-h-40 grid place-items-center">
                           <span class="loading loading-spinner loading-lg"></span>
